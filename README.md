@@ -1,16 +1,28 @@
-# My Groq Chat App
+# 终端下的 Groq 聊天工具
 
-## 使用
+## 示例
 
-### 1. 创建一个 `.env` 文件，内容如下
+![1](static/comparsion.png)
 
-[获取密钥](https://console.groq.com/keys)
+![2](static/dry-clothes.png)
+
+![3](static/killers.png)
+
+## 使用方法
+
+Windows, Linux, MacOS 通用
+
+### 1. 创建包含以下内容的 `.env` 文件
 
 ```env
 GROQ_API_KEY=
 ```
 
+[获取访问 Groq API 服务密钥](https://console.groq.com/keys)
+
 ### 2. 安装依赖
+
+环境：俺用的 miniconda, python 3.11
 
 ```sh
 pip install groq
@@ -22,7 +34,7 @@ pip install groq
 python app.py
 ```
 
-## 基本调用
+## 基本示例
 
 ```py
 from groq import Groq
@@ -36,7 +48,7 @@ completion = client.chat.completions.create(
     messages=[
         {
             "role": "user",
-            "content": "How many r's are in the word strawberry?"
+            "content": "How many Rs are in the word strawberry?"
         }
     ],
     temperature=0.6,
@@ -48,3 +60,6 @@ completion = client.chat.completions.create(
 
 for chunk in completion:
     print(chunk.choices[0].delta.content or "", end="")
+```
+
+[来源](https://console.groq.com/docs/reasoning)

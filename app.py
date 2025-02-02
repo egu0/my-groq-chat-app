@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from groq import Groq
 from dotenv import load_dotenv
+from markdown import append_file, render_single_line
 
 load_dotenv()
 
@@ -62,7 +63,13 @@ def main():
         for chunk in completion:
             tok = chunk.choices[0].delta.content or ""
             response += tok
-            print(tok, end="")
+            # 1. plain text
+            # print(tok, end="")
+            # 2. markdown render
+            render_single_line(tok)
+            # 3. repr
+            append_file(repr(tok))
+            # print(repr(tok) + ',')
         print('\n\n')
         conversation.append({"role": "assistant", "content": response})
         # Log the conversation
