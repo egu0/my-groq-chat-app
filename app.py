@@ -39,7 +39,7 @@ def main():
     log_filename = f"logs/{config['start_time']}.json"
     os.makedirs("logs", exist_ok=True)
 
-    print("Chat with deepseek-r1-distill-llama-70 (Groq). Type 'exit' to quit.")
+    print("Chat with deepseek-r1-distill-llama-70b (Groq). Type 'exit' to quit.")
     while True:
         user_input = input(">>> ")
         if user_input.strip() == "":

@@ -5,25 +5,92 @@ from pygments.styles import get_all_styles
 
 
 markdown = """
-# Title
+# 随机生成的Markdown示例
 
-This is a paragraph with **bold** and *italic* text.
+## 1. 标题示例
 
-## Subtitle
+### 1.1 一级标题
+#### 1.1.1 二级标题
+##### 1.1.1.1 三级标题
 
-This is another paragraph with a [link](https://example.com).
+## 2. 列表示例
 
-- item 1
-- item 2
-- item 3
+### 2.1 无序列表
+- 项目1
+- 项目2
+- 子项目1
+- 子项目2
+- 项目3
+
+### 2.2 有序列表
+1. 第一项
+2. 第二项
+1. 子项1
+2. 子项2
+3. 第三项
+
+## 3. 表格示例
+
+| 列1 | 列2 | 列3 |
+|------|------|------|
+| 单元格1 | 单元格2 | 单元格3 |
+| 单元格4 | 单元格5 | 单元格6 |
+| 单元格7 | 单元格8 | 单元格9 |
+
+## 4. 代码块示例
 
 ```python
-print('Hello, World!')
+def hello_world():
+print("Hello, World!")
+
+hello_world()
 ```
 
-> This is a blockquote.
+## 5. 数学公式示例
 
-This is the end of the document.
+### 5.1 行内公式
+Euler公式：$e^{i\pi} = -1$
+
+### 5.2 独立公式
+$$
+f(x) = \int_{0}^{\infty} \frac{\sin(x)}{x} \, dx
+$$
+
+### 5.3 矩阵示例
+$$
+\begin{bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+$$
+
+## 6. 引用示例
+
+> 这是一个引用段落，引用自某位伟人。
+> “想象力比知识更重要，因为知识是有限的，而想象力概括着世界的一切。”
+> —— 阿尔伯特·爱因斯坦
+
+## 7. 链接示例
+
+[百度](https://www.baidu.com)
+[谷歌](https://www.google.com)
+
+## 8. 图片示例
+
+![Markdown Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg
+/208px-Markdown-mark.svg.png)
+
+## 9. 强调示例
+
+*斜体*
+**加粗**
+***斜体加粗***
+~~删除线~~
+
+## 10. 分割线示例
+
+---
+上面是一个分割线
 """
 
 styles = list(get_all_styles())
