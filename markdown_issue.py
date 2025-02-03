@@ -1,10 +1,17 @@
+from io import BytesIO, StringIO
+
 from pygments import highlight
 from pygments.lexers import MarkdownLexer
 from pygments.formatters import Terminal256Formatter
 from pygments.styles import get_all_styles
 
-
 markdown = """
+<think>
+
+这是一个Markdown文档示例，包含了常见的Markdown语法和格式。
+
+</think>
+
 # 随机生成的Markdown示例
 
 ## 1. 标题示例
@@ -97,6 +104,27 @@ styles = list(get_all_styles())
 # ['abap', 'algol', 'algol_nu', 'arduino', 'autumn', 'bw', 'borland', 'colorful', 'default', 'dracula', 'emacs', 'friendly_grayscale', 'friendly', 'fruity', 'github-dark', 'gruvbox-dark', 'gruvbox-light', 'igor', 'inkpot', 'lightbulb', 'lilypond', 'lovelace', 'manni', 'material',
 #     'monokai', 'murphy', 'native', 'nord-darker', 'nord', 'one-dark', 'paraiso-dark', 'paraiso-light', 'pastie', 'perldoc', 'rainbow_dash', 'rrt', 'sas', 'solarized-dark', 'solarized-light', 'staroffice', 'stata-dark', 'stata-light', 'tango', 'trac', 'vim', 'vs', 'xcode', 'zenburn']
 
-highlighted_text = highlight(
-    markdown, MarkdownLexer(), Terminal256Formatter(style='solarized-light'))
-print(highlighted_text)
+if __name__ == '__main__':
+    #highlighted_text = highlight(
+    #    markdown, MarkdownLexer(), Terminal256Formatter(style='solarized-light'))
+    #print(highlighted_text)
+
+    ########################
+
+    # lexer
+    lexer = MarkdownLexer()
+    tks = lexer.get_tokens(markdown)  # generator, 不可二次迭代, 会被消耗
+    # 转换为 list, 以便多次迭代
+    tks = list(tks)
+    for tk in tks:
+        print(tk)
+
+    print("--------------------")
+
+    # formatter
+    formatter = Terminal256Formatter(style='solarized-light')
+    outfile = getattr(formatter, 'encoding', None) and BytesIO() or StringIO()
+    formatter.format(tks, outfile)
+    highlighted_content = outfile.getvalue()
+    # print(repr(highlighted_content))
+    print(highlighted_content)

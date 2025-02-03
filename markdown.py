@@ -6,11 +6,21 @@ from pygments.lexers import MarkdownLexer
 from pygments.formatters import Terminal256Formatter
 
 line_buffer = ''
+thinking = None
+
+
+def get_thinking():
+    return thinking
+
+
+def set_thinking(value):
+    global thinking
+    thinking = value
 
 
 def append_file(s: str):
     with open('logs/temp.txt', 'a') as file:
-        file.write(s+'\n')
+        file.write(s + '\n')
 
 
 def hit_row_limit():
@@ -19,35 +29,29 @@ def hit_row_limit():
     return wcswidth(line_buffer) >= width * 0.9
 
 
-def test():
-    a = '接下来，我应该比较它们的整数部分。两个数字的整数部分都是9，所以接下来要看小数部分。9.11的小数部分是0.11，而9.9的小数部分是0.9。为了更清晰地比较，我可以将9.9写成9.90，这样两者的小'
-    b = "let me double-check the links to ensure they\'re correct. Trello.com, Slack.com, Google.com/drive, Zoom.us, and Microsoft.com/teams. All correct. I should also keep the language c"
-    print(len(a), wcswidth(a))
-    print(a)
-    print(len(b), wcswidth(b))
-    print(b)
-
-
-# lear and concise, avoiding any jargon. The goal is to be helpful and informative without overwhelming the reader. Finally, I\'ll review the entire response to make sure it flows well and covers all the points the user requested: a title, a numbered list with links, additional tips, and a closing statement. I think that\'s it. Time to put it all together in the response.
-
-# ''            ['']
-# haha          ['haha']
-# \nhaha        ['','haha']
-# haha\n        ['haha','']
-# \n            ['','']
-# \n\n          ['','','']
-# .\n\n         ['.','','']             *
-# 1\n           ['1','']
-# \n1           ['','1']
-# 1\n2          ['1','2']
-# 1\n\n2        ['1','','2']
-# 1\n\n\n2      ['1','','','2']
-
-
 def end_current_line():
     global line_buffer
     line_buffer = ''
     print()
+
+
+class Colors:
+    RESET = "\033[0m"  # 重置颜色
+    GREY = "\033[90m"  # 灰色
+
+
+def do_output(cur_token: str):
+    global line_buffer
+    if get_thinking():
+        print(f"\r{Colors.GREY}{line_buffer}{Colors.RESET}", end="")
+    else:
+        highlighted_text = highlight(
+            line_buffer, MarkdownLexer(), Terminal256Formatter(style='solarized-light'))
+        # print(repr(highlighted_text[:-1]))
+        print('\r' + highlighted_text[:-1], end="")
+    #  如果当前 token 包含 '</think>'，则将 thinking 置为 False
+    if '</think>' in cur_token:
+        set_thinking(False)
 
 
 def render_single_line(token: str):
@@ -67,10 +71,7 @@ def render_single_line(token: str):
     if len(items) == 1:
         line_buffer += items[0]
         line_buffer = line_buffer.lstrip()
-        highlighted_text = highlight(
-            line_buffer, MarkdownLexer(), Terminal256Formatter(style='solarized-light'))
-        # print(repr(highlighted_text[:-1]))
-        print('\r' + highlighted_text[:-1], end="")
+        do_output(token)
         if hit_row_limit():
             end_current_line()
         return
@@ -81,10 +82,7 @@ def render_single_line(token: str):
         else:
             line_buffer += item
             line_buffer = line_buffer.lstrip()
-            highlighted_text = highlight(
-                line_buffer, MarkdownLexer(), Terminal256Formatter(style='solarized-light'))
-            # print(repr(highlighted_text[:-1]))
-            print('\r' + highlighted_text[:-1], end="")
+            do_output(token)
             if hit_row_limit():
                 end_current_line()
 
@@ -1061,7 +1059,8 @@ tokens = ['',
           ]
 
 if __name__ == "__main__":
-    for token in tokens:
-        render_single_line(token)
+    set_thinking(True)
+    for tk in tokens:
+        render_single_line(tk)
         time.sleep(0.05)
     # test()

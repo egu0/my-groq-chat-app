@@ -3,7 +3,7 @@ import json
 from datetime import datetime
 from groq import Groq
 from dotenv import load_dotenv
-from markdown import append_file, render_single_line
+from markdown import append_file, render_single_line, set_thinking
 
 load_dotenv()
 
@@ -41,6 +41,7 @@ def main():
 
     print("Chat with deepseek-r1-distill-llama-70b (Groq). Type 'exit' to quit.")
     while True:
+        set_thinking(True)
         user_input = input(">>> ")
         if user_input.strip() == "":
             continue
@@ -69,11 +70,11 @@ def main():
             response += tok
             # 1. plain text
             # print(tok, end="")
-            # 2. markdown render
+            # 2. 逐行渲染返回的 markdown
             render_single_line(tok)
-            # 3. repr
-            append_file(repr(tok))
+            # 3. 记录 repr 结果
             # print(repr(tok) + ',')
+            append_file(repr(tok))
         print('\n\n')
         conversation.append({"role": "assistant", "content": response})
         # Log the conversation
