@@ -26,7 +26,7 @@ def log_interaction(log_filename, append):
 def main():
     conversation = []
     config = {
-        "start_time": datetime.now().isoformat(),
+        "start_time": datetime.now().strftime("%Y-%m-%d-%H-%M-%S"),
         "parameters": {
             "model": "deepseek-r1-distill-llama-70b",
             "temperature": 0.5,

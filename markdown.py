@@ -19,7 +19,7 @@ def set_thinking(value):
 
 
 def append_file(s: str):
-    with open('logs/temp.txt', 'a') as file:
+    with open('logs/temp.txt', 'a', encoding='utf-8') as file:
         file.write(s + '\n')
 
 
