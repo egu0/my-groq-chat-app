@@ -25,7 +25,7 @@ GROQ_API_KEY=
 环境：俺用的 miniconda, python 3.11
 
 ```sh
-pip install groq python-dotenv wcwidth pygments
+pip install groq python-dotenv wcwidth pygments httpx socks socksio
 ```
 
 ### 3. 运行
