@@ -49,15 +49,19 @@ def main():
         time_start_conversation = datetime.now().isoformat()
         conversation.append({"role": "user", "content": user_input})
         # Send the conversation to the model
-        completion = client.chat.completions.create(
-            model=config["parameters"]["model"],
-            messages=conversation,
-            temperature=config["parameters"]["temperature"],
-            max_completion_tokens=config["parameters"]["max_completion_tokens"],
-            top_p=config["parameters"]["top_p"],
-            stream=config["parameters"]["stream"],
-            reasoning_format=config["parameters"]["reasoning_format"]
-        )
+        try:
+            completion = client.chat.completions.create(
+                model=config["parameters"]["model"],
+                messages=conversation,
+                temperature=config["parameters"]["temperature"],
+                max_completion_tokens=config["parameters"]["max_completion_tokens"],
+                top_p=config["parameters"]["top_p"],
+                stream=config["parameters"]["stream"],
+                reasoning_format=config["parameters"]["reasoning_format"]
+            )
+        except Exception as e:
+            print(f"API call failed: {str(e)}\n\nAbort.")
+            break
         # Print the response
         response = ""
         for chunk in completion:

@@ -1,10 +1,9 @@
 import time
 from wcwidth import wcswidth
 import shutil
-# import markdown  # 新增导入 markdown 库
-from pygments import highlight  # 新增导入 pygments 库
-from pygments.lexers import MarkdownLexer  # 新增导入 MarkdownLexer
-from pygments.formatters import TerminalFormatter  # 新增导入 TerminalFormatter
+from pygments import highlight
+from pygments.lexers import MarkdownLexer
+from pygments.formatters import Terminal256Formatter
 
 line_buffer = ''
 
@@ -69,7 +68,7 @@ def render_single_line(token: str):
         line_buffer += items[0]
         line_buffer = line_buffer.lstrip()
         highlighted_text = highlight(
-            line_buffer, MarkdownLexer(), TerminalFormatter())
+            line_buffer, MarkdownLexer(), Terminal256Formatter(style='solarized-light'))
         # print(repr(highlighted_text[:-1]))
         print('\r' + highlighted_text[:-1], end="")
         if hit_row_limit():
@@ -83,7 +82,7 @@ def render_single_line(token: str):
             line_buffer += item
             line_buffer = line_buffer.lstrip()
             highlighted_text = highlight(
-                line_buffer, MarkdownLexer(), TerminalFormatter())
+                line_buffer, MarkdownLexer(), Terminal256Formatter(style='solarized-light'))
             # print(repr(highlighted_text[:-1]))
             print('\r' + highlighted_text[:-1], end="")
             if hit_row_limit():
