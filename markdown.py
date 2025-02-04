@@ -57,20 +57,19 @@ def do_output(cur_token: str):
 def render_single_line(token: str):
     if token is None:
         return
-    if token.strip() == '':
-        if '\n\n' in token:
-            end_current_line()
-            end_current_line()
-            return
-        elif '\n' in token or '' == token:
-            end_current_line()
-            return
+
+    if '\n\n' == token:
+        end_current_line()
+        end_current_line()
+        return
+    elif '\n' == token:
+        end_current_line()
+        return
 
     global line_buffer
     items = token.split('\n')
     if len(items) == 1:
         line_buffer += items[0]
-        line_buffer = line_buffer.lstrip()
         do_output(token)
         if hit_row_limit():
             end_current_line()
@@ -81,7 +80,6 @@ def render_single_line(token: str):
             end_current_line()
         else:
             line_buffer += item
-            line_buffer = line_buffer.lstrip()
             do_output(token)
             if hit_row_limit():
                 end_current_line()

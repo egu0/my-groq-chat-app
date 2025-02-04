@@ -65,3 +65,10 @@ for chunk in completion:
 ```
 
 [来源](https://console.groq.com/docs/reasoning)
+
+## 国内用户使用方法
+
+Groq 的服务接口（`api.groq.com`）默认屏蔽了国内 IP，可以通过以下方法解决：
+
+1. 使用代理软件的「系统代理」功能
+2. 手动在 `app.py` 中配置代理服务器
