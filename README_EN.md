@@ -1,42 +1,40 @@
-# 在终端中使用 DeepSeek (Groq)
+# Use DeepSeek (Groq) in Terminal
 
-[English](README_EN.md)
+## Examples
 
-## 示例
+![1](static/comparsion_en.png)
 
-![1](static/comparsion.png)
+![2](static/dry-clothes_en.png)
 
-![2](static/dry-clothes.png)
+![3](static/killers_en.png)
 
-![3](static/generate.png)
+## Usage
 
-## 使用方法
+Works on Windows, Linux, MacOS
 
-Windows, Linux, MacOS 通用
-
-### 1. 创建包含以下内容的 `.env` 文件
+### 1. Create a `.env` file with the following content
 
 ```env
 GROQ_API_KEY=
 ```
 
-[获取访问 Groq API 服务密钥](https://console.groq.com/keys)
+[Get your GROQ_API_KEY](https://console.groq.com/keys)
 
-### 2. 安装依赖
+### 2. Install dependencies
 
-环境：俺用的 miniconda, python 3.11
+Environment: I use miniconda, python 3.11
 
 ```sh
 pip install groq python-dotenv wcwidth pygments
 ```
 
-### 3. 运行
+### 3. Run the application
 
 ```sh
 python app.py
 ```
 
-## 基本示例
+## Basic Example
 
 ```py
 from groq import Groq
@@ -64,4 +62,4 @@ for chunk in completion:
     print(chunk.choices[0].delta.content or "", end="")
 ```
 
-[来源](https://console.groq.com/docs/reasoning)
+[Source](https://console.groq.com/docs/reasoning)
