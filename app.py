@@ -17,24 +17,31 @@ def log_interaction(log_filename, append):
     except (FileNotFoundError, json.JSONDecodeError):
         data = []  # Initialize as an empty list if the file doesn't exist or is empty
 
-    data.append(append)
+    data.insert(0, append)
 
     with open(log_filename, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=4)
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def main():
     conversation = []
+
     config = {
         "start_time": datetime.now().strftime("%Y-%m-%d-%H-%M-%S"),
         "parameters": {
             "model": "deepseek-r1-distill-llama-70b",
+            # Controls randomness in responses. Lower values make responses more deterministic. Recommended range: 0.5-0.7 to prevent repetitions or incoherent outputs
             "temperature": 0.5,
+            # Maximum length of model's response. Default may be too low for complex reasoning - consider increasing for detailed step-by-step solutions
             "max_completion_tokens": 4096,
+            # Controls diversity of token selection
             "top_p": 0.95,
+            # Enables response streaming
             "stream": True,
+            # Includes reasoning within think tags in the content.
             "reasoning_format": "raw"
         }
+        # 参考：https://console.groq.com/docs/reasoning
     }
     log_filename = f"logs/{config['start_time']}.json"
     os.makedirs("logs", exist_ok=True)
@@ -46,9 +53,15 @@ def main():
         if user_input.strip() == "":
             continue
         if user_input.lower() == "exit":
+            print("Bye.")
             break
-        time_start_conversation = datetime.now().isoformat()
         conversation.append({"role": "user", "content": user_input})
+        log_interaction(log_filename, {
+            "time": datetime.now().isoformat(),
+            "messages": conversation,
+            "parameters": config["parameters"]
+        })
+
         # Send the conversation to the model
         try:
             completion = client.chat.completions.create(
@@ -79,7 +92,7 @@ def main():
         conversation.append({"role": "assistant", "content": response})
         # Log the conversation
         log_interaction(log_filename, {
-            "time": time_start_conversation,
+            "time": datetime.now().isoformat(),
             "messages": conversation,
             "parameters": config["parameters"]
         })
