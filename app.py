@@ -1,13 +1,17 @@
 import os
 import json
 from datetime import datetime
-from groq import Groq
+from groq import Groq, DefaultHttpxClient
 from dotenv import load_dotenv
 from markdown import append_file, render_single_line, set_thinking
 
 load_dotenv()
 
-client = Groq()
+# 配置代理服务器。
+# - 实验发现：https 和 socks5 代理失败，http 代理成功
+# - 示例：http_proxy = "http://127.0.0.1:7897"
+http_proxy = None
+client = Groq(http_client=DefaultHttpxClient(proxy=http_proxy))
 
 
 def log_interaction(log_filename, append):
