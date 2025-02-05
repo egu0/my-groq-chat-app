@@ -24,9 +24,13 @@ def append_file(s: str):
 
 
 def hit_row_limit():
-    width = shutil.get_terminal_size().columns
+    width = screen_columns()
     # 如果行缓冲区的长度大于等于当前终端的列数的 90%，返回 True
     return wcswidth(line_buffer) >= width * 0.9
+
+
+def screen_columns():
+    return shutil.get_terminal_size().columns
 
 
 def end_current_line():
@@ -1061,4 +1065,3 @@ if __name__ == "__main__":
     for tk in tokens:
         render_single_line(tk)
         time.sleep(0.05)
-    # test()
