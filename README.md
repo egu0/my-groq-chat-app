@@ -1,6 +1,14 @@
-# 在终端中使用 DeepSeek (Groq)
+# 在终端中使用 DeepSeek R1 Distill Llama 70B (Groq)
 
 [English](README_EN.md)
+
+## 功能
+
+- 文字会话：「[deepseek-r1-distill-llama-70b](https://groq.com/groqcloud-makes-deepseek-r1-distill-llama-70b-available/)」模型
+- 模型输出结果渲染
+- 会话内容记录
+- 继续历史会话
+- 配置代理服务器
 
 ## 示例
 
@@ -57,6 +65,11 @@ aha
 # 继续上次的回话
 aha <conversation_id>
 ```
+
+## 参考
+
+- [DeepSeek R1 Distill Llama 70B 模型在 GroqCloud 上可以使用了](https://groq.com/groqcloud-makes-deepseek-r1-distill-llama-70b-available/)
+- [GroqCloud API 访问速率限制](https://console.groq.com/settings/limits)
 
 ## 基本示例
 
