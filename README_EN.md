@@ -1,4 +1,4 @@
-# Use DeepSeek (Groq) in Terminal
+# Chat with DeepSeek R1 Distill Llama 70B (Groq) in Terminal
 
 ## Examples
 
@@ -33,6 +33,11 @@ pip install groq python-dotenv wcwidth pygments
 ```sh
 python app.py
 ```
+
+## Reference
+
+- [GroqCloud Makes DeepSeek R1 Distill Llama 70B Available](https://groq.com/groqcloud-makes-deepseek-r1-distill-llama-70b-available/)
+- [Rate Limits of GroqCloud API](https://console.groq.com/settings/limits)
 
 ## Basic Example
 
