@@ -36,6 +36,28 @@ pip install groq python-dotenv wcwidth pygments
 python app.py
 ```
 
+### 4. 配置快捷命令（此步非必须）
+
+根据你使用的 shell 类型，配置一个 `aha` 命令，指向 `app.py` 文件。例如：
+
+为 `~/.zshrc` 文件中添加：
+
+```sh
+aha() {
+    (cd /path/to/your-repo/ && /path/of/your/python app.py "$@")
+}
+```
+
+### 5. 使用
+
+```sh
+# 新回话
+aha
+
+# 继续上次的回话
+aha <conversation_id>
+```
+
 ## 基本示例
 
 ```py
@@ -65,10 +87,3 @@ for chunk in completion:
 ```
 
 [来源](https://console.groq.com/docs/reasoning)
-
-## 国内用户使用方法
-
-Groq 的服务接口（`api.groq.com`）默认屏蔽了国内 IP，可以通过以下方法解决：
-
-1. 使用代理软件的「系统代理」功能
-2. 手动在 `app.py` 中配置代理服务器
